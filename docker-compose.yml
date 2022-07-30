@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   backend:
-    image: projetoprenatal-backend
+    image: bhub-backend
     build:
       context: ./backend
       dockerfile: ./Dockerfile
