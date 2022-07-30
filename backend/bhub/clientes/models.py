@@ -9,7 +9,7 @@ class Cliente(models.Model):
     faturamento_declarado = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self):
-        return f'{self.last_name}, {self.first_name}'
+        return f'{self.razao_social}, {self.telefone}'
     
 class DadosBancarios(models.Model):
     agencia = models.PositiveSmallIntegerField()
