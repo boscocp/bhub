@@ -1,6 +1,6 @@
 from decimal import Decimal
 from django.test import TestCase
-from clientes.models import Cliente
+from clientes.models import Cliente, DadosBancarios
 from bson.decimal128 import Decimal128
 from django.core.exceptions import ObjectDoesNotExist
 # Create your tests here.
@@ -9,7 +9,6 @@ class ClienteModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         # Set up non-modified objects used by all test methods
-
         Cliente.objects.create(
                 id = 1,
                 razao_social = 'Casado', 
@@ -45,3 +44,27 @@ class ClienteModelTest(TestCase):
         with self.assertRaises(ObjectDoesNotExist, msg='Cliente matching query does not exist'):
             Cliente.objects.get(id=1)
         
+        
+class DadosBancariosModelTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cliente = Cliente(
+            id = 2,
+            razao_social = 'Casado', 
+            telefone = '112222-222',
+            endereco = 'Ali na rua',
+            faturamento_declarado = 100.51,               
+        )
+        cliente.save()
+        novo_banco = DadosBancarios(
+            id = 1,
+            agencia = 1,
+            conta = 2,
+            banco = "banco1",
+            cliente = cliente,
+        )
+        novo_banco.save()
+  
+  
+    def test_pass(self):
+        pass
