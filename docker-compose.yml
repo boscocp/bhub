@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  backend:
+    image: projetoprenatal-backend
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    ports:
+      - 1024:1024
+    restart: always
+    env_file:
+      - database.env
+  # frontend:
+  #   image: frontend
+  #   build:
+  #     context: ./frontend-proj
+  #     dockerfile: ./Dockerfile
+  #   ports:
+  #     - 4200:4200
+  #   restart: "always"
