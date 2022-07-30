@@ -4,11 +4,10 @@ services:
   backend:
     image: bhub-backend
     build:
-      context: ./backend
+      context: ./backend/bhub
       dockerfile: ./Dockerfile
     ports:
       - 1024:1024
-    restart: always
     env_file:
       - database.env
   # frontend:
