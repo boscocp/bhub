@@ -1,4 +1,5 @@
 from decimal import Decimal
+from uuid import UUID
 from django.test import TestCase
 from clientes.models import Cliente, DadosBancarios
 from bson.decimal128 import Decimal128
@@ -66,5 +67,24 @@ class DadosBancariosModelTest(TestCase):
         novo_banco.save()
   
   
-    def test_pass(self):
-        pass
+    def test_adiciona_banco(self):
+        cliente = Cliente.objects.get(id=2)
+        novo_banco = DadosBancarios(
+            id=2,
+            agencia = 1,
+            conta = 2,
+            banco = "banco2",
+            cliente = cliente,
+        )
+        novo_banco.save()
+        banco_salvo = DadosBancarios.objects.get(id=2)
+        self.assertEquals(banco_salvo.banco, novo_banco.banco)
+        self.assertEquals(banco_salvo.cliente.id, novo_banco.cliente.id)
+    
+    
+    def test_deleta_cliente_cascata(self):
+        Cliente.objects.get(id=2).delete()
+        with self.assertRaises(ObjectDoesNotExist, msg='DadosBancarios matching query does not exist'):
+            DadosBancarios.objects.get(id=1)
+        with self.assertRaises(ObjectDoesNotExist, msg='DadosBancarios matching query does not exist'):
+            DadosBancarios.objects.get(id=2)

@@ -18,7 +18,7 @@ from django.urls import path
 from clientes import views
 from django.conf.urls import include
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('clientes/', include('clientes.urls')),
+    path('clientes/', views.ClienteCreateView.as_view()),
+    path('clientes/<int:pk>', views.ClienteCreateView.as_view()),
     path('admin/', admin.site.urls),
 ]
