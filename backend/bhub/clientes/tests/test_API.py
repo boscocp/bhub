@@ -12,7 +12,7 @@ class ClienteAPITest(TestCase):
     def setUpTestData(cls):
         Cliente.objects.create(
             id = UUID("35fc86f3-5533-412b-8ce0-93107079b469"),
-            razao_social = 'Casado', 
+            razao_social = 'pessoa juridica', 
             telefone = '112222-222',
             endereco = 'Ali na rua',
             faturamento_declarado = 100.51,               
@@ -22,7 +22,7 @@ class ClienteAPITest(TestCase):
     def test_view_post(self):
         request = {
             "cliente": {
-                "razao_social": "solteiro",
+                "razao_social": "pessoa fisica",
                 "telefone": "1155555",
                 "endereco": "Rua Api",
                 "faturamento_declarado": 1054.51
@@ -33,7 +33,7 @@ class ClienteAPITest(TestCase):
     
     def test_view_get_list(self):
         cliente1 = Cliente.objects.create(
-            razao_social = 'Casado', 
+            razao_social = 'pessoa juridica', 
             telefone = '112222-222',
             endereco = 'Ali na rua',
             faturamento_declarado = 100.51,               
@@ -45,7 +45,7 @@ class ClienteAPITest(TestCase):
             faturamento_declarado = 100.51,               
         )
         cliente3 = Cliente.objects.create(
-            razao_social = 'solteiro', 
+            razao_social = 'pessoa fisica', 
             telefone = '112222-242',
             endereco = 'Ali na rua',
             faturamento_declarado = 100.51,               
@@ -62,7 +62,7 @@ class ClienteAPITest(TestCase):
     def test_update_cliente(self):
         request = {
             "cliente": {
-                "razao_social": "solteiro",
+                "razao_social": "pessoa fisica",
                 "telefone": "1155555",
                 "endereco": "Rua Api",
                 "faturamento_declarado": 1054.51
@@ -94,7 +94,7 @@ class ClienteAPITest(TestCase):
     def test_get_all_dados_bancarios(self):
         cliente = Cliente.objects.create(
             id = UUID("35fc86f3-5533-412b-8ce0-93107079b468"),
-            razao_social = 'Casado', 
+            razao_social = 'pessoa juridica', 
             telefone = '112222-222',
             endereco = 'Ali na rua',
             faturamento_declarado = 100.51,               

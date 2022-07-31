@@ -12,7 +12,7 @@ class ClienteModelTest(TestCase):
         # Set up non-modified objects used by all test methods
         Cliente.objects.create(
                 id = 1,
-                razao_social = 'Casado', 
+                razao_social = 'pessoa juridica', 
                 telefone = '112222-222',
                 endereco = 'Ali na rua',
                 faturamento_declarado = 100.51,               
@@ -51,7 +51,7 @@ class DadosBancariosModelTest(TestCase):
     def setUpTestData(cls):
         cliente = Cliente(
             id = 2,
-            razao_social = 'Casado', 
+            razao_social = 'pessoa juridica', 
             telefone = '112222-222',
             endereco = 'Ali na rua',
             faturamento_declarado = 100.51,               
