@@ -55,7 +55,7 @@ class ClienteAPITest(TestCase):
         
         
     def test_get_by_uuid(self):
-        response = client.get('/clientes/35fc86f3-5533-412b-8ce0-93107079b469')
+        response = client.get('/clientes/35fc86f3-5533-412b-8ce0-93107079b469/')
         self.assertEqual(response.status_code, 200)
         
     
@@ -68,13 +68,13 @@ class ClienteAPITest(TestCase):
                 "faturamento_declarado": 1054.51
             }
         }
-        response = client.put('/clientes/35fc86f3-5533-412b-8ce0-93107079b469', request, format='json')
+        response = client.put('/clientes/35fc86f3-5533-412b-8ce0-93107079b469/', request, format='json')
         self.assertEqual(response.status_code, 200)
         self.assertEquals(response.data['telefone'], "1155555")
         
         
     def test_delete_cliente(self):
-        response = client.delete('/clientes/35fc86f3-5533-412b-8ce0-93107079b469')
+        response = client.delete('/clientes/35fc86f3-5533-412b-8ce0-93107079b469/')
         self.assertEqual(response.status_code, 200)
         
         
