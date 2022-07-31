@@ -43,7 +43,7 @@ class ClienteCreateView(APIView):
     
     
     def delete(self, request, pk):
-        cliente = Cliente.objects.get(id=pk).delete()
+        Cliente.objects.get(id=pk).delete()
         response = Response()
         response.data = {
             'cliente':'Cliente deletado com sucesso',
@@ -67,31 +67,28 @@ class DadosBancariosCreateView(APIView):
     
     
     def get(self, request, **pk):
-        print(pk)
-       
         if 'db_id' not in pk.keys():
             dadosbancarios = DadosBancarios.objects.filter(cliente__id=pk['pk'])
             serializer = DadosBancariosSerializer(dadosbancarios, many = True)
             return Response(serializer.data)
         else:
             dadosbancarios = DadosBancarios.objects.get(id=pk['db_id'])
-            print(pk['db_id'])
             serializer = DadosBancariosSerializer(dadosbancarios)
             return Response(serializer.data)
     
     
-    # def put(self, request, pk):
-    #     cliente = Cliente.objects.get(id=pk)
-    #     serializer = ClienteSerializer(cliente,data=request.data['cliente'])
-    #     serializer.is_valid(raise_exception=True)    
-    #     serializer.save()
-    #     return Response(serializer.data)
+    def put(self, request, **pk):
+        dadosbancarios = DadosBancarios.objects.get(id=pk['db_id'])
+        serializer = DadosBancariosSerializer(dadosbancarios,data=request.data['dadosbancarios'])
+        serializer.is_valid(raise_exception=True)    
+        serializer.save()
+        return Response(serializer.data)
     
     
-    # def delete(self, request, pk):
-    #     cliente = Cliente.objects.get(id=pk).delete()
-    #     response = Response()
-    #     response.data = {
-    #         'cliente':'Cliente deletado com sucesso',
-    #     }
-    #     return response
+    def delete(self, request, **pk):
+        DadosBancarios.objects.get(id=pk['db_id']).delete()
+        response = Response()
+        response.data = {
+            'dadosbancarios':'Dados Bancarios deletados com sucesso',
+        }
+        return response
