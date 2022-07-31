@@ -66,15 +66,18 @@ class DadosBancariosCreateView(APIView):
         return response
     
     
-    # def get(self, request, **pk):
-    #     if pk:
-    #         cliente = Cliente.objects.get(id=pk['pk'])
-    #         serializer = ClienteSerializer(cliente)
-    #         return Response(serializer.data)
-    #     else:
-    #         clientes = Cliente.objects.all()
-    #         serializer = ClienteSerializer(clientes, many = True)
-    #         return Response(serializer.data)
+    def get(self, request, **pk):
+        print(pk)
+       
+        if 'db_id' not in pk.keys():
+            dadosbancarios = DadosBancarios.objects.filter(cliente__id=pk['pk'])
+            serializer = DadosBancariosSerializer(dadosbancarios, many = True)
+            return Response(serializer.data)
+        else:
+            dadosbancarios = DadosBancarios.objects.get(id=pk['db_id'])
+            print(pk['db_id'])
+            serializer = DadosBancariosSerializer(dadosbancarios)
+            return Response(serializer.data)
     
     
     # def put(self, request, pk):

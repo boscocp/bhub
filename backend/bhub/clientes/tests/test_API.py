@@ -92,22 +92,69 @@ class ClienteAPITest(TestCase):
     #     )
     #     response = client.delete('/clientes/849ac768-3ed2-43bd-a2f0-2658ea512182')
     #     self.assertEqual(response.status_code, 200)
+        
+        
+    # def test_create_dados_bancarios(self):
+    #     Cliente.objects.create(
+    #         id = UUID("849ac768-3ed2-43bd-a2f0-2658ea512182"),
+    #         razao_social = 'Casado', 
+    #         telefone = '112222-222',
+    #         endereco = 'Ali na rua',
+    #         faturamento_declarado = 100.51,               
+    #     )
+    #     request = {
+    #         "dadosbancarios": {
+    #             "agencia": 1,
+    #             "conta": 3,
+    #             "banco": "Banco11",
+    #         }
+    #     }
+    #     response = client.post('/clientes/849ac768-3ed2-43bd-a2f0-2658ea512182/dadosbancarios/', request, format='json')
+    #     self.assertEqual(response.status_code, 200)
+    #     dadosbancarios = DadosBancarios.objects.get(id=response.data['id'])
+    #     self.assertEquals(dadosbancarios.cliente.id, UUID("849ac768-3ed2-43bd-a2f0-2658ea512182"))
+    
     def test_create_dados_bancarios(self):
-        Cliente.objects.create(
+        cliente = Cliente.objects.create(
             id = UUID("849ac768-3ed2-43bd-a2f0-2658ea512182"),
             razao_social = 'Casado', 
             telefone = '112222-222',
             endereco = 'Ali na rua',
             faturamento_declarado = 100.51,               
         )
-        request = {
-            "dadosbancarios": {
-                "agencia": 1,
-                "conta": 3,
-                "banco": "Banco11",
-            }
-        }
-        response = client.post('/clientes/849ac768-3ed2-43bd-a2f0-2658ea512182/dadosbancarios/', request, format='json')
+        
+        novo_banco = DadosBancarios( 
+            agencia = 1,
+            conta = 2,
+            banco = "banco1",
+            cliente = cliente,
+        )
+        novo_banco.save()
+        novo_banco2 = DadosBancarios(
+            agencia = 1,
+            conta = 2,
+            banco = "banco2",
+            cliente = cliente,
+        )
+        novo_banco2.save()
+        response = client.get('/clientes/849ac768-3ed2-43bd-a2f0-2658ea512182/dadosbancarios/')
         self.assertEqual(response.status_code, 200)
-        dadosbancarios = DadosBancarios.objects.get(id=response.data['id'])
-        self.assertEquals(dadosbancarios.cliente.id, UUID("849ac768-3ed2-43bd-a2f0-2658ea512182"))
+    
+    def test_create_dados_bancarios(self):
+        cliente = Cliente.objects.create(
+            id = UUID("849ac768-3ed2-43bd-a2f0-2658ea512182"),
+            razao_social = 'Casado', 
+            telefone = '112222-222',
+            endereco = 'Ali na rua',
+            faturamento_declarado = 100.51,               
+        )
+        
+        novo_banco = DadosBancarios( 
+            agencia = 1,
+            conta = 2,
+            banco = "banco1",
+            cliente = cliente,
+        )
+        novo_banco.save()
+        response = client.get('/clientes/849ac768-3ed2-43bd-a2f0-2658ea512182/dadosbancarios/'+novo_banco.id.__str__()+'/')
+        self.assertEqual(response.status_code, 200)
