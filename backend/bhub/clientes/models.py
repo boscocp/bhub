@@ -14,6 +14,7 @@ class Cliente(models.Model):
         return f'{self.razao_social}, {self.telefone}'
     
 class DadosBancarios(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular cient')
     agencia = models.PositiveSmallIntegerField()
     conta = models.PositiveSmallIntegerField()
     banco = models.CharField(max_length=100)

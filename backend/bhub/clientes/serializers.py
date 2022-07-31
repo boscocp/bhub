@@ -11,4 +11,4 @@ class DadosBancariosSerializer(serializers.ModelSerializer):
     class Meta:
         model = DadosBancarios
         fields = '__all__'
-        extra_kwargs = {'persons': {'required': False}}
+        extra_kwargs = {'clientes': {'required': False}}
