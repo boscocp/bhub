@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'clientes.apps.ClientesConfig',
+    'rest_framework_swagger',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True # TODO change for only have acess the white listed
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'bhub.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
